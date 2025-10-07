@@ -105,10 +105,10 @@ Docling discovers external plugins via Python entry points. This repo registers 
 pyproject entry point:
 ```toml
 [project.entry-points."docling"]
-"api_usage_plugin" = "docling.api_usage_plugin"
+"api_usage_plugin" = "api_usage.api_usage_plugin"
 ```
 
-The module `docling.api_usage` must define:
+The module `api_usage.api_usage_plugin` must define:
 ```python
 def picture_description():
     return {"picture_description": [PictureDescriptionApiModelWithUsage]}
@@ -123,11 +123,11 @@ This aligns with Docling’s recommended setup described in:
   - Check `dist-info/entry_points.txt` in your venv; it should include:
     ```
     [docling]
-    api_usage = docling.api_usage
+    api_usage_plugin = api_usage.api_usage_plugin
     ```
 - Only default classes registered:
   - Ensure `picture_description()` returns the MODEL CLASS (not the options class).
-  - Ensure the entry point targets the module (`docling.api_usage`), not a function path.
+  - Ensure the entry point targets the module (`api_usage.api_usage_plugin`), not a function path.
 - API calls failing:
   - Confirm `enable_remote_services=True`.
   - Verify URL, API key, and header name in `.env`.
