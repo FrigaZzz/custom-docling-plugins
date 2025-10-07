@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "api_usage_docling_plugin"
+version = "0.1.0"
+description = "Docling plugin exposing picture_description and token_usage features via an OpenAI-compatible API."
+readme = "README.md"
+requires-python = ">=3.8"
+authors = [ { name = "Custom Docling Plugins", email = "frigato.luca97@gmail.com" } ]
+
+# Runtime dependencies (PEP 621): list strings, e.g. ["docling>=1.0"]
+dependencies = []
+
+[project.entry-points."docling"]
+"api_usage" = "docling.api_usage"
+
+[tool.setuptools]
+packages = ["docling"]
