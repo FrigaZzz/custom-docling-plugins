@@ -11,7 +11,7 @@ from docling.datamodel.pipeline_options import PictureDescriptionBaseOptions
 
 
 
-class PictureDescriptionApiOptionsWithToken(PictureDescriptionBaseOptions):
+class PictureDescriptionApiOptionsWithUsage(PictureDescriptionBaseOptions):
     """DescriptionAnnotation."""
 
     kind: ClassVar[Literal["api_token"]] = "api_token"

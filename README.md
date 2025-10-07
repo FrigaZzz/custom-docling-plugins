@@ -80,7 +80,7 @@ SOURCE_DOCUMENT=https://arxiv.org/pdf/2408.09869
 - Resolves backend:
   - If all `AZURE_*` variables are set → uses Azure OpenAI.
   - Otherwise → uses the OpenAI-compatible URL and header specified in `.env`.
-- Builds `PictureDescriptionApiOptionsWithToken` with `url`, `headers`, `params`, `prompt`, `timeout`, `token_extract_key`.
+- Builds `PictureDescriptionApiOptionsWithUsage` with `url`, `headers`, `params`, `prompt`, `timeout`, `token_extract_key`.
 - Configures `Docling PdfPipelineOptions`:
   - `allow_external_plugins = True`
   - `enable_remote_services = True`
@@ -94,9 +94,9 @@ SOURCE_DOCUMENT=https://arxiv.org/pdf/2408.09869
 - `pyproject.toml` — packaging metadata and Docling entry point.
 - `docling/__init__.py` — namespace package setup to augment installed `docling`.
 - `docling/api_usage.py` — plugin module exposing `picture_description()`.
-- `docling/picture_description_api_model_with_token.py` — options type (url, headers, params, prompt, timeout, concurrency, token_extract_key, etc.).
-- `docling/api_image_request_with_token.py` — HTTP helper for image+prompt → text (+ usage).
-- `docling/picture_description_api_model.py` — model using the helper; attaches `DescriptionAnnotationWithToken` containing text and `token_usage`.
+- `docling/picture_description_api_model_with_usage.py` — options type (url, headers, params, prompt, timeout, concurrency, token_extract_key, etc.).
+- `docling/api_image_request_with_usage.py` — HTTP helper for image+prompt → text (+ usage).
+- `docling/picture_description_api_model.py` — model using the helper; attaches `DescriptionAnnotationWithUsage` containing text and `token_usage`.
 - `test.py` — environment-driven example script.
 
 ## Plugin registration
@@ -105,13 +105,13 @@ Docling discovers external plugins via Python entry points. This repo registers 
 pyproject entry point:
 ```toml
 [project.entry-points."docling"]
-"api_usage" = "docling.api_usage"
+"api_usage_plugin" = "docling.api_usage_plugin"
 ```
 
 The module `docling.api_usage` must define:
 ```python
 def picture_description():
-    return {"picture_description": [PictureDescriptionApiModelWithToken]}
+    return {"picture_description": [PictureDescriptionApiModelWithUsage]}
 ```
 
 This aligns with Docling’s recommended setup described in:

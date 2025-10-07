@@ -20,8 +20,8 @@ from dotenv import load_dotenv
 from docling.document_converter import DocumentConverter, PdfFormatOption
 from docling.datamodel.pipeline_options import PdfPipelineOptions
 from docling.datamodel.base_models import InputFormat
-from docling.picture_description_api_model_with_token import (
-    PictureDescriptionApiOptionsWithToken,
+from api_usage.datamodel.pipeline_options.picture_description_api_model_with_usage import (
+    PictureDescriptionApiOptionsWithUsage
 )
 
 
@@ -64,7 +64,7 @@ def _resolve_backend() -> Tuple[str, Dict[str, str], str]:
     return url, headers, "openai-compatible"
 
 
-def build_picture_description_options() -> PictureDescriptionApiOptionsWithToken:
+def build_picture_description_options() -> PictureDescriptionApiOptionsWithUsage:
     prompt = os.getenv(
         "PICTURE_DESCRIPTION_PROMPT",
         "Describe the image in three sentences. Be concise and accurate.",
@@ -89,7 +89,7 @@ def build_picture_description_options() -> PictureDescriptionApiOptionsWithToken
     if token_extract_key:
         print(f"  token_extract_key: {token_extract_key}")
 
-    return PictureDescriptionApiOptionsWithToken(
+    return PictureDescriptionApiOptionsWithUsage(
         url=url,
         headers=headers,
         params=params,

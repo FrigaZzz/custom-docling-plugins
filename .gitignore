@@ -9,6 +9,7 @@ build/
 *.dist-info/
 *.log
 *.egg-info
+**/**/*.egg-info
 
 # Virtual environments
 .venv/

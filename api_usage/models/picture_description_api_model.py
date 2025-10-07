@@ -14,12 +14,12 @@ from docling.exceptions import OperationNotAllowed
 from docling.models.base_model import ItemAndImageEnrichmentElement
 from docling.models.picture_description_base_model import \
     PictureDescriptionBaseModel
-from .api_image_request_with_token import api_image_request
-from docling.picture_description_api_model_with_token import \
-    PictureDescriptionApiOptionsWithToken
+from api_usage.datamodel.utils.api_image_request_with_usage import api_image_request
+from api_usage.datamodel.pipeline_options.picture_description_api_model_with_usage import \
+    PictureDescriptionApiOptionsWithUsage
 
 
-class DescriptionAnnotationWithToken(BaseAnnotation):
+class DescriptionAnnotationWithUsage(BaseAnnotation):
     """DescriptionAnnotation."""
 
     kind: Literal["description"] = "description"
@@ -28,19 +28,19 @@ class DescriptionAnnotationWithToken(BaseAnnotation):
     token_usage: Optional[dict] = None
 
 
-class PictureDescriptionApiModelWithToken(PictureDescriptionBaseModel):
+class PictureDescriptionApiModelWithUsage(PictureDescriptionBaseModel):
     # elements_batch_size = 4
 
     @classmethod
     def get_options_type(cls) -> Type[PictureDescriptionBaseOptions]:
-        return PictureDescriptionApiOptionsWithToken
+        return PictureDescriptionApiOptionsWithUsage
 
     def __init__(
         self,
         enabled: bool,
         enable_remote_services: bool,
         artifacts_path: Optional[Union[Path, str]],
-        options: PictureDescriptionApiOptionsWithToken,
+        options: PictureDescriptionApiOptionsWithUsage,
         accelerator_options: AcceleratorOptions,
     ):
         super().__init__(
@@ -50,7 +50,7 @@ class PictureDescriptionApiModelWithToken(PictureDescriptionBaseModel):
             options=options,
             accelerator_options=accelerator_options,
         )
-        self.options: PictureDescriptionApiOptionsWithToken
+        self.options: PictureDescriptionApiOptionsWithUsage
         self.concurrency = self.options.concurrency
 
         if self.enabled:
@@ -119,7 +119,7 @@ class PictureDescriptionApiModelWithToken(PictureDescriptionBaseModel):
                 text, usage = output, None
 
             item.annotations.append(
-                DescriptionAnnotationWithToken(
+                DescriptionAnnotationWithUsage(
                     text=text, provenance=self.provenance, token_usage=usage
                 )
             )

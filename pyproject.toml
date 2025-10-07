@@ -14,7 +14,7 @@ authors = [ { name = "Custom Docling Plugins", email = "frigato.luca97@gmail.com
 dependencies = []
 
 [project.entry-points."docling"]
-"api_usage" = "docling.api_usage"
+api_usage_plugin = "api_usage.api_usage_plugin"
 
 [tool.setuptools]
-packages = ["docling"]
+packages = ["api_usage"]
