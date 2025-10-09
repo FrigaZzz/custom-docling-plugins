@@ -5,7 +5,7 @@ from typing import List, Literal, Optional, Type, Union
 
 from docling_core.types.doc import DoclingDocument, NodeItem, PictureItem
 from docling_core.types.doc.document import \
-    BaseAnnotation  # TODO: move import to docling_core.types.doc
+    DescriptionAnnotation  # TODO: move import to docling_core.types.doc
 from PIL import Image
 
 from docling.datamodel.accelerator_options import AcceleratorOptions
@@ -19,7 +19,7 @@ from api_usage.datamodel.pipeline_options.picture_description_api_model_with_usa
     PictureDescriptionApiOptionsWithUsage
 
 
-class DescriptionAnnotationWithUsage(BaseAnnotation):
+class DescriptionAnnotationWithUsage(DescriptionAnnotation):
     """DescriptionAnnotation."""
 
     kind: Literal["description"] = "description"
